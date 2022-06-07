@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interações botão</title>
+  <style>
+    body {
+      padding: 0;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    #fundo {
+      height: 100vh;
+      width: 100vw;
+      background-color: rgb(241, 241, 241);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button {
+      padding: 10px 35px;
+      font-size: 20px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    button:hover {
+      opacity: 60%;
+    }
+
+    .bg {
+      background-color: #fff;
+      padding: 35px;
+    }
+
+    .amarelo {
+      background-color: rgb(255, 248, 143);
+    }
+
+    .verde {
+      background-color: rgb(143, 255, 195);
+    }
+
+    .vermelho {
+      background-color: rgb(255, 143, 143);
+    }
+
+    .azul {
+      background-color: rgb(143, 182, 255);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="fundo">
+    <div class="bg">
+      <button class="amarelo" onclick="btn_amarelo()">Amarelo</button>
+      <button class="verde" onclick="btn_verde()">Verde</button>
+      <button class="vermelho" onclick="btn_vermelho()">Vermelho</button>
+      <button class="azul" onclick="btn_azul()">Azul</button>
+
+    </div>
+  </div>
+
+  <script>
+    var fundo = document.getElementById("fundo")
+
+    function btn_amarelo() {
+      fundo.style.backgroundColor = "rgb(255, 248, 143)"
+    }
+    function btn_verde() {
+      fundo.style.backgroundColor = "rgb(143, 255, 195)"
+    }
+    function btn_vermelho() {
+      fundo.style.backgroundColor = "rgb(255, 143, 143)"
+    }
+    function btn_azul() {
+      fundo.style.backgroundColor = "rgb(143, 182, 255)"
+    }
+  </script>
+</body>
+
+</html>
