@@ -32,8 +32,9 @@
     }
 
     h2 {
+      font-size: 36px;
       color: #fff;
-      padding-right: 16px;
+      margin: 24px 26px;
     }
 
     .onde_mostra_o_resultado {
@@ -60,6 +61,7 @@
     .grid-item-reset,
     .grid-item-igual,
     .grid-item-del {
+      cursor: pointer;
       border-radius: 4px;
       text-align: center;
       padding: 6px 16px;
@@ -67,12 +69,14 @@
       padding: 15px;
       font-size: 25px;
       text-align: center;
+      box-shadow: 0px 4px 0em 0px #cacaca;
     }
 
     .grid-item-reset {
       grid-column-start: 1;
       grid-column-end: 3;
       background-color: #647299;
+      box-shadow: 0px 4px 0em 0px #475885;
       color: #fff;
     }
 
@@ -80,12 +84,34 @@
       grid-column-start: 3;
       grid-column-end: 5;
       background-color: #D13F30;
+      box-shadow: 0px 4px 0em 0px #aa2113;
       color: #fff;
     }
 
     .grid-item-del {
       background-color: #647299;
       color: #fff;
+      box-shadow: 0px 4px 0em 0px #475885;
+    }
+
+    .grid-item:hover,
+    .grid-item:active {
+      background: #c7c3b7;
+      box-shadow: none;
+    }
+
+    .grid-item-igual:hover,
+    .grid-item-igual:active {
+      background: #a3291c;
+      box-shadow: none;
+    }
+
+    .grid-item-reset:hover,
+    .grid-item-reset:active,
+    .grid-item-del:hover,
+    .grid-item-del:active {
+      background: #45547a;
+      box-shadow: none;
     }
 
     @media (max-width: 900px) {
