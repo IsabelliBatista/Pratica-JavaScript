@@ -42,6 +42,11 @@
       width: 40%;
       text-align: right;
       border-radius: 6px;
+      padding: 5px 0;
+      height: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .conteudo_calculadora {
@@ -70,6 +75,9 @@
       font-size: 25px;
       text-align: center;
       box-shadow: 0px 4px 0em 0px #cacaca;
+      box-sizing: border-box;
+      font-family: 'Open Sans', sans-serif;
+      border: 0;
     }
 
     .grid-item-reset {
@@ -127,36 +135,118 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="container calculator">
     <h1>Calculadora</h1>
     <div class="onde_mostra_o_resultado">
-      <h2>12123</h2>
+      <h2 class="calculator__display"></h2>
     </div>
     <div class="conteudo_calculadora">
       <div class="teclas">
-        <div class="row">
-          <div class="grid-item">7</div>
-          <div class="grid-item">8</div>
-          <div class="grid-item">9</div>
-          <div class="grid-item-del">Del</div>
-          <div class="grid-item">4</div>
-          <div class="grid-item">5</div>
-          <div class="grid-item">6</div>
-          <div class="grid-item">+</div>
-          <div class="grid-item">1</div>
-          <div class="grid-item">2</div>
-          <div class="grid-item">3</div>
-          <div class="grid-item">-</div>
-          <div class="grid-item">.</div>
-          <div class="grid-item">0</div>
-          <div class="grid-item">/</div>
-          <div class="grid-item">x</div>
-          <div class="grid-item-reset">Reset</div>
-          <div class="grid-item-igual">=</div>
+        <div class="row calculator__keys">
+          <button class="grid-item">7</button>
+          <button class="grid-item">8</button>
+          <button class="grid-item">9</button>
+          <button class="grid-item-del" data-action="clear">Del</button>
+          <button class="grid-item">4</button>
+          <button class="grid-item">5</button>
+          <button class="grid-item">6</button>
+          <button class="grid-item key--operator" data-action="add">+</button>
+          <button class="grid-item">1</button>
+          <button class="grid-item">2</button>
+          <button class="grid-item">3</button>
+          <button class="grid-item key--operator" data-action="subtract">-</button>
+          <button class="grid-item" data-action="decimal">.</button>
+          <button class="grid-item">0</button>
+          <button class="grid-item key--operator" data-action="divide">/</button>
+          <button class="grid-item key--operator" data-action="multiply">x</button>
+          <button class="grid-item-reset" data-action="clear">Reset</button>
+          <button class="grid-item-igual key--equal" data-action="calculate">=</button>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    const calculator = document.querySelector('.calculator')
+    const keys = document.querySelector('.calculator__keys')
+    const display = document.querySelector('.calculator__display')
+
+    keys.addEventListener('click', e => {
+      if (e.target.matches('button')) {
+        const key = e.target
+        const action = key.dataset.action
+        const keyContent = key.textContent
+        const displayedNum = display.textContent
+        const previousKeyType = calculator.dataset.previousKeyType
+
+        if (!action) {
+          if (displayedNum === '0' || previousKeyType === 'operator') {
+            display.textContent = keyContent
+          } else {
+            display.textContent = displayedNum + keyContent
+          }
+        }
+
+        Array.from(key.parentNode.children)
+          .forEach(k => k.classList.remove('is-depressed'))
+
+        if (!action) {
+          console.log('number key!')
+          if (displayedNum === '0') {
+            display.textContent = keyContent
+          } else {
+            display.textContent = displayedNum + keyContent
+          }
+        }
+        if (
+          action === 'add' ||
+          action === 'subtract' ||
+          action === 'multiply' ||
+          action === 'divide'
+        ) {
+          key.classList.add('is-depressed')
+          calculator.dataset.previousKeyType = 'operator'
+          calculator.dataset.firstValue = displayedNum
+          calculator.dataset.operator = action
+          console.log('operator key!')
+        }
+        if (action === 'decimal') {
+          console.log('decimal key!')
+          display.textContent = displayedNum + '.'
+        }
+
+        if (action === 'clear') {
+          console.log('clear key!')
+          display.textContent = ''
+        }
+
+        if (action === 'calculate') {
+          const firstValue = calculator.dataset.firstValue
+          const operator = calculator.dataset.operator
+          const secondValue = displayedNum
+
+          display.textContent = calculate(firstValue, operator, secondValue)
+          console.log('equal key!')
+        }
+      }
+    })
+    const calculate = (n1, operator, n2) => {
+      let result = ''
+
+      if (operator === 'add') {
+        result = parseFloat(n1) + parseFloat(n2)
+      } else if (operator === 'subtract') {
+        result = parseFloat(n1) - parseFloat(n2)
+      } else if (operator === 'multiply') {
+        result = parseFloat(n1) * parseFloat(n2)
+      } else if (operator === 'divide') {
+        result = parseFloat(n1) / parseFloat(n2)
+      }
+
+      return result
+    }
+  </script>
+
 </body>
 
 </html>
